@@ -30,7 +30,7 @@ export default class Shop extends LightningElement {
         item.quantity = 1;
         this.cartItems.push(item);
 
-        // UPDATE CART TOTAL
+        this.updateTotal();
     }
 
     removeFromCart(item) {
@@ -39,6 +39,24 @@ export default class Shop extends LightningElement {
             obj.name !== item.name
         );
 
-        // UPDATE CART TOTAL
+        this.updateTotal();
+    }
+
+    updateTotal() {
+        this.cartTotal = this.cartItems.reduce(
+            (total, obj) => {
+                return total + (obj.price * obj.quantity);
+            }, 0
+        ).toFixed(2); // Round to 2 decimals
+    }
+
+    changeQuantity(event) {
+        let target = event.currentTarget;
+        let cartIndex = target.dataset.index;
+
+        let item = this.cartItems[cartIndex];
+        item.quantity = target.value; // HTML input floors at zero!
+
+        this.updateTotal();
     }
 }
