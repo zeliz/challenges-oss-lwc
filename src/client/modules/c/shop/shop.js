@@ -59,4 +59,24 @@ export default class Shop extends LightningElement {
 
         this.updateTotal();
     }
+
+    // SORT BUTTONS
+    sortName() {
+        this.cartItems.sort((a, b) => {
+            return (a.name === b.name) ?
+                0 : (a.name < b.name) ? -1 : 1 ;
+        });
+    }
+    sortQuantity() {
+        this.cartItems.sort((a, b) => {
+            return (a.quantity === b.quantity) ?
+                0 : (a.quantity < b.quantity) ? -1 : 1 ;
+        });
+    }
+    sortSubtotal() {
+        this.cartItems.sort((a, b) => {
+            return (a.quantity*a.price === b.quantity*b.price) ?
+                0 : (a.quantity*a.price < b.quantity*b.price) ? -1 : 1 ;
+        });
+    }
 }
