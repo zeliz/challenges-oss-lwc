@@ -6,7 +6,7 @@
             <div class="assortment">
                 <ul>
                     <template for:each={storeItems} for:item="item" for:index="index">
-                        <li key={item.name} data-index={index}>
+                        <li class="item" key={item.name} data-index={index}>
                             <div class="item-details">
                                 <h3>{item.name}</h3>
                                 <p>{item.price}</p>
