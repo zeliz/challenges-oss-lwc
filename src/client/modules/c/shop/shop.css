@@ -18,6 +18,17 @@
     float: left;
 }
 
+.cart .checkout {
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px;
+    height: 100px;
+}
+
+.cart img {
+    padding: 15px;
+}
+
 .item {
     font-size: 0.8rem;
     margin: 10px;
