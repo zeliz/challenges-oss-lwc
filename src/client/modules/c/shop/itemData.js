@@ -68,7 +68,9 @@ const MY_FAV = {
 
 let shopItems = [];
 for (let category in MY_FAV) {
-    shopItems.push(MY_FAV[category].favorite);
+    if (Object.prototype.hasOwnProperty.call(MY_FAV, category)) {
+        shopItems.push(MY_FAV[category].favorite);
+    }
 }
 
 export { shopItems };

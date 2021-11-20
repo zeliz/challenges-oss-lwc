@@ -2,3 +2,11 @@
     --dark-color: #191970;
     --highlight: #40E0D0;
 }
+
+img {
+    height: 75px;
+}
+
+ul {
+    list-style-type: none;
+}
