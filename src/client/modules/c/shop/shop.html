@@ -26,7 +26,13 @@
                                 <h3>{item.name}</h3>
                                 <p>${item.price} * {item.quantity}</p>
                             </div>
-                            <div><img src={item.image.link} alt={item.image.alt} /></div>
+                            <div>
+                                <img src={item.image.link} alt={item.image.alt} />
+                                <input type="number" min="0" onchange={changeQuantity}
+                                    value={item.quantity}
+                                    data-index={index} 
+                                >
+                            </div>
                         </li>
                     </template>
                 </ul>

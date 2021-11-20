@@ -49,4 +49,14 @@ export default class Shop extends LightningElement {
             }, 0
         ).toFixed(2); // Round to 2 decimals
     }
+
+    changeQuantity(event) {
+        let target = event.currentTarget;
+        let cartIndex = target.dataset.index;
+
+        let item = this.cartItems[cartIndex];
+        item.quantity = target.value; // HTML input floors at zero!
+
+        this.updateTotal();
+    }
 }
