@@ -4,18 +4,16 @@
         <section class="shop">
             <h2>Please choose items to display in cart:</h2>
             <div class="assortment">
-                <ul>
-                    <template for:each={storeItems} for:item="item" for:index="index">
-                        <li class="item" key={item.name} data-index={index}
-                            onclick={selectFromShop}>
-                            <div class="item-details">
-                                <h3>{item.name}</h3>
-                                <p>{item.price}</p>
-                            </div>
-                            <div><img src={item.image.link} alt={item.image.alt} /></div>
-                        </li>
-                    </template>
-                </ul>
+                <template for:each={storeItems} for:item="item" for:index="index">
+                    <div key={item.name} onshopselect={handleShopSelect}>
+                        <c-item data-index={index}
+                            item-name={item.name}
+                            item-price={item.price}
+                            item-image={item.image}
+                        >
+                        </c-item>
+                    </div>
+                </template>
             </div>
             <h2>
                 Shopping Cart Contents:
@@ -24,23 +22,18 @@
                 <button onclick={sortSubtotal}>Sort by Subtotal</button>
             </h2>
             <div class="cart">
-                <ul>
-                    <template for:each={cartItems} for:item="item" for:index="index">
-                        <li class="item checkout" key={item.name}>
-                            <div class="item-details">
-                                <h3>{item.name}</h3>
-                                <p>${item.price} * {item.quantity}</p>
-                            </div>
-                            <div>
-                                <img src={item.image.link} alt={item.image.alt} />
-                                <input type="number" min="0" onchange={changeQuantity}
-                                    value={item.quantity}
-                                    data-index={index} 
-                                >
-                            </div>
-                        </li>
-                    </template>
-                </ul>
+                <template for:each={cartItems} for:item="item" for:index="index">
+                    <div key={item.name} onchangequantity={handleChangeQuantity}>
+                        <c-item data-index={index}
+                            item-name={item.name}
+                            item-price={item.price}
+                            item-quantity={item.quantity}
+                            item-image={item.image}
+                            checkout
+                        >
+                        </c-item>
+                    </div>
+                </template>
             </div>
         </section>
     </div>
