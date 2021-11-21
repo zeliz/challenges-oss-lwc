@@ -1,7 +1,9 @@
 import { LightningElement, api } from 'lwc';
 
 export default class Item extends LightningElement {
-    // Parent calls index from event.target.dataset.index;
+    // Parent gets index at event.target.dataset.index;
+    //(data-index={index} listed in child attribute)
+
     @api
     checkout = false; // distinguish between shop and cart items
 
@@ -17,9 +19,21 @@ export default class Item extends LightningElement {
     @api
     itemImage;
 
+    get cssClass() {
+        return (this.checkout) ? "item cart" : "item shop";
+    }
+
     selectShopItem() {
-        this.template.querySelector(".item").classList.toggle("selected");
+        if (!this.checkout) {
+            this.template.querySelector(".item").classList.toggle("selected");
+        }
         this.dispatchEvent(new CustomEvent('shopselect', { bubbles: true }));
     }
 
+    changeCheckoutQuantity(event) {
+        this.dispatchEvent(new CustomEvent('changequantity', {
+            detail: event.target.value,  // HTML input floors at zero!
+            bubbles: true
+        }));
+    }
 }

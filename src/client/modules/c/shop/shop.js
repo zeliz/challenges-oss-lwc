@@ -15,26 +15,22 @@ export default class Shop extends LightningElement {
         let storeIndex = event.target.dataset.index;
         let item = this.storeItems[storeIndex];
 
-        console.log("HANDLE SELECTED " + item.name);
-
         if (!item.selected) {
             this.addToCart(item);
         } else {
             this.removeFromCart(item);
         }
     }
-    // selectFromShop(event) {
-    //     let target = event.currentTarget;
-    //     let storeIndex = target.dataset.index;
 
-    //     target.classList.toggle("selected");
-    //     let item = this.storeItems[storeIndex];
-    //     if (!item.selected) {
-    //         this.addToCart(item);
-    //     } else {
-    //         this.removeFromCart(item);
-    //     }
-    // }
+    handleChangeQuantity(event) {
+        let cartIndex = event.target.dataset.index;
+        let item = this.cartItems[cartIndex];
+
+        let newQuantity = event.detail;
+        item.quantity = (newQuantity < 0) ? 0 : newQuantity;
+
+        this.updateTotal();
+    }
 
     addToCart(item) {
         // NOTE: item.selected and item.quantity begin as undefined
@@ -62,33 +58,35 @@ export default class Shop extends LightningElement {
         ).toFixed(2); // Round to 2 decimals
     }
 
-    changeQuantity(event) {
-        let target = event.currentTarget;
-        let cartIndex = target.dataset.index;
-
-        let item = this.cartItems[cartIndex];
-        item.quantity = target.value; // HTML input floors at zero!
-
-        this.updateTotal();
-    }
-
     // SORT BUTTONS
     sortName() {
-        this.cartItems.sort((a, b) => {
-            return (a.name === b.name) ?
-                0 : (a.name < b.name) ? -1 : 1 ;
-        });
+        this.sortCartByKey("name");
     }
     sortQuantity() {
-        this.cartItems.sort((a, b) => {
-            return (a.quantity === b.quantity) ?
-                0 : (a.quantity < b.quantity) ? -1 : 1 ;
-        });
+        this.sortCartByKey("quantity");
     }
     sortSubtotal() {
-        this.cartItems.sort((a, b) => {
-            return (a.quantity*a.price === b.quantity*b.price) ?
-                0 : (a.quantity*a.price < b.quantity*b.price) ? -1 : 1 ;
+        this.sortCartByKey("subtotal");
+    }
+    
+    sortCartByKey(key) {
+        let transform = (value) => {
+            switch (key) {
+                case "name": return value.name;
+                case "quantity": return value.quantity;
+                case "subtotal": return (value.price * value.quantity);
+                default:
+                    console.log("Error: invalid sort key...");
+                    return 0;
+            }
+        };
+
+        // Sort cart by transformed values...
+        this.cartItems.sort((left, right) => {
+            let l = transform(left);
+            let r = transform(right);
+            return (l === r) ?
+                0 : (l < r) ? -1 : 1 ;
         });
     }
 }

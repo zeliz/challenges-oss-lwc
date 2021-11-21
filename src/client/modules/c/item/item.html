@@ -1,11 +1,23 @@
 <template>
-    <div class="item" onclick={selectShopItem}>
+    <div class={cssClass} onclick={selectShopItem}>
         <div>
             <h3>{itemName}</h3>
-            <p>{itemPrice}</p>
+            <p> {itemPrice}
+                <template if:true={checkout}>
+                    * {itemQuantity}
+                </template>
+            </p>
         </div>
-        <template if:true={itemImage}>
-            <div><img src={itemImage.link} alt={itemImage.alt} /></div>
-        </template>
+        <div>
+            <template if:true={itemImage}>
+                <img src={itemImage.link} alt={itemImage.alt} />
+            </template>
+            <template if:true={checkout}>
+                <input type="number" min="0"
+                    onchange={changeCheckoutQuantity}
+                    value={itemQuantity}
+                />
+            </template>
+        </div>
     </div>
 </template>
