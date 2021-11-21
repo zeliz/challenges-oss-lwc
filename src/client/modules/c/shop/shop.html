@@ -4,18 +4,26 @@
         <section class="shop">
             <h2>Please choose items to display in cart:</h2>
             <div class="assortment">
-                <ul>
-                    <template for:each={storeItems} for:item="item" for:index="index">
-                        <li class="item" key={item.name} data-index={index}
+                <!-- <ul> -->
+                <template for:each={storeItems} for:item="item" for:index="index">
+                    <div key={item.name} onshopselect={handleShopSelect}>
+                        <c-item data-index={index}
+                            item-name={item.name}
+                            item-price={item.price}
+                            item-image={item.image}
+                        >
+                        </c-item>
+                    </div>
+                        <!-- <li class="item" key={item.name} data-index={index}
                             onclick={selectFromShop}>
                             <div class="item-details">
                                 <h3>{item.name}</h3>
                                 <p>{item.price}</p>
                             </div>
                             <div><img src={item.image.link} alt={item.image.alt} /></div>
-                        </li>
-                    </template>
-                </ul>
+                        </li> -->
+                </template>
+                <!-- </ul> -->
             </div>
             <h2>
                 Shopping Cart Contents:

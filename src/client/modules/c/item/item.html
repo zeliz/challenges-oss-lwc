@@ -1,0 +1,11 @@
+<template>
+    <div class="item" onclick={selectShopItem}>
+        <div>
+            <h3>{itemName}</h3>
+            <p>{itemPrice}</p>
+        </div>
+        <template if:true={itemImage}>
+            <div><img src={itemImage.link} alt={itemImage.alt} /></div>
+        </template>
+    </div>
+</template>

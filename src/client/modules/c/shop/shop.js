@@ -11,18 +11,30 @@ export default class Shop extends LightningElement {
     @track
     cartItems = [];
 
-    selectFromShop(event) {
-        let target = event.currentTarget;
-        let storeIndex = target.dataset.index;
-
-        target.classList.toggle("selected");
+    handleShopSelect(event) {
+        let storeIndex = event.target.dataset.index;
         let item = this.storeItems[storeIndex];
+
+        console.log("HANDLE SELECTED " + item.name);
+
         if (!item.selected) {
             this.addToCart(item);
         } else {
             this.removeFromCart(item);
         }
     }
+    // selectFromShop(event) {
+    //     let target = event.currentTarget;
+    //     let storeIndex = target.dataset.index;
+
+    //     target.classList.toggle("selected");
+    //     let item = this.storeItems[storeIndex];
+    //     if (!item.selected) {
+    //         this.addToCart(item);
+    //     } else {
+    //         this.removeFromCart(item);
+    //     }
+    // }
 
     addToCart(item) {
         // NOTE: item.selected and item.quantity begin as undefined

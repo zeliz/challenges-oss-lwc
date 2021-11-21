@@ -1,0 +1,20 @@
+:host {
+    --dark-color: #191970;
+    --highlight: #40E0D0;
+}
+
+.item {
+    font-size: 0.8rem;
+    margin: 10px;
+    border: 4px solid var(--dark-color);
+    padding: 5px 20px;
+    min-width: 150px;
+}
+
+.item.selected {
+    background-color: var(--highlight);
+}
+
+img {
+    height: 75px;
+}
